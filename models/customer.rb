@@ -25,8 +25,12 @@ class Customer
   def self.all()
     sql = "SELECT * FROM customers;"
     customers = SqlRunner.run(sql)
-    results = customers.map {|customer| Customer.new(customer)}
+    results = Customer.map_items(customers)
     return results
+  end
+
+  def self.map_items(customer_data)
+    return customer_data.map {|customer| Customer.new(customer)}
   end
 
 end
