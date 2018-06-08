@@ -7,6 +7,7 @@ class Ticket
   attr_reader(:id)
   attr_accessor(:customer_id, :film_id)
 
+# instance methods
   def initialize(options)
     @id = options["id"].to_i() if options["id"]
     @customer_id = options["customer_id"].to_i()
@@ -22,5 +23,16 @@ class Ticket
     @id = ticket["id"].to_i()
   end
 
+# class methods
+  def self.all()
+    sql = "SELECT * FROM tickets;"
+    tickets = SqlRunner.run(sql)
+    results = Ticket.map_items(tickets)
+    return results
+  end
+
+  def self.map_items(ticket_data)
+    return ticket_data.map {|ticket| Ticket.new(ticket)}
+  end
 
 end
