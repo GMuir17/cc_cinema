@@ -1,5 +1,6 @@
 require_relative("../db/sql_runner.rb")
 require_relative("./customer.rb")
+require_relative("./ticket.rb")
 
 class Film
 
@@ -45,6 +46,14 @@ class Film
     values = [@id]
     customers = SqlRunner.run(sql, values)
     return Customer.map_items(customers)
+  end
+
+  def find_price()
+    sql = "SELECT price FROM films
+      WHERE id = $1;"
+    values = [@id]
+    price = SqlRunner.run(sql,values).first()["price"].to_i()
+    return price
   end
 
   # class methods
