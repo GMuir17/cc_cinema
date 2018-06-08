@@ -74,16 +74,17 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-  def buy_ticket(film)
-    # decrease the funds of customer by the film's price, and create a new ticket
-    new_ticket = Ticket.new({
-      "customer_id" => @id,
-      "film_id" => film.id()
-      })
-    new_ticket.save()
-    ticket_price = film.find_price()
-    decrease_funds(ticket_price)
-  end
+  # def buy_ticket(film)
+  #   # decrease the funds of customer by the film's price, and create a new ticket
+  #   new_ticket = Ticket.new({
+  #     "customer_id" => @id,
+  #     "film_id" => film.id(),
+  #     "screening_id" =>
+  #     })
+  #   new_ticket.save()
+  #   ticket_price = film.find_price()
+  #   decrease_funds(ticket_price)
+  # end
 
 # class methods
   def self.all()
