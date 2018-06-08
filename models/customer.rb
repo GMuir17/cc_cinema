@@ -57,6 +57,14 @@ class Customer
     return tickets_array.length()
   end
 
+  def check_funds()
+    sql = "SELECT funds FROM customers
+      WHERE id = $1;"
+    values = [@id]
+    funds = SqlRunner.run(sql, values).first()["funds"].to_i()
+    return funds
+  end
+
   # def buy_ticket(film)
   #   # decrease the funds of customer by the film's price, and create a new ticket
   #   sql = "INSERT INTO tickets (customer_id, film_id)
