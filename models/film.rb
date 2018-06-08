@@ -48,6 +48,16 @@ class Film
     return Customer.map_items(customers)
   end
 
+  def screenings()
+    sql = "SELECT screenings.* FROM screenings
+      INNER JOIN tickets
+      ON tickets.screening_id = screenings.id
+      WHERE screenings.film_id = $1;"
+    values = [@id]
+    screenings = SqlRunner.run(sql, values)
+    return Screening.map_items(screenings)
+  end
+
   def find_price()
     sql = "SELECT price FROM films
       WHERE id = $1;"
@@ -82,6 +92,13 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def self.most_popular_time()
+    sql = "SELECT screening_id, COUNT (screening_id)
+      FROM tickets
+      GROUP BY screening_id;"
+    hash_array =  SqlRunner.run(sql)
+    return hash_array.map {|count| count}
+  end
 
 
 end
