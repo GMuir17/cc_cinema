@@ -56,6 +56,15 @@ class Film
     return price
   end
 
+  def number_of_tickets_sold()
+    sql = "SELECT * FROM tickets
+      WHERE tickets.film_id = $1;"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    tickets_array = Ticket.map_items(results)
+    return tickets_array.length()
+  end
+
   # class methods
   def self.all()
     sql = "SELECT * FROM films;"
