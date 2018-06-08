@@ -22,7 +22,16 @@ class Screening
     @id = screening["id"].to_i()
   end
 
+# class methods
+  def self.all()
+    sql = "SELECT * FROM screenings;"
+    screenings = SqlRunner.run(sql)
+    results = Screening.map_items(screenings)
+    return results
+  end
 
-
+  def self.map_items(screening_data)
+    screening_data.map {|screening| Screening.new(screening)}
+  end
 
 end
