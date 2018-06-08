@@ -22,6 +22,13 @@ class Screening
     @id = screening["id"].to_i()
   end
 
+  def delete()
+    sql = "DELETE FROM screenings
+      WHERE id = $1;"
+    values = [@id]
+    SqlRunner.run(sql, values)
+  end
+
 # class methods
   def self.all()
     sql = "SELECT * FROM screenings;"
