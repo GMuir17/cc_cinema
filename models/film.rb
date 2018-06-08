@@ -22,15 +22,22 @@ class Film
   end
 
   # class methods
-    def self.all()
-      sql = "SELECT * FROM films;"
-      films = SqlRunner.run(sql)
-      results = Film.map_items(films)
-      return results
-    end
+  def self.all()
+    sql = "SELECT * FROM films;"
+    films = SqlRunner.run(sql)
+    results = Film.map_items(films)
+    return results
+  end
 
-    def self.map_items(film_data)
-      return film_data.map {|film| Film.new(film)}
-    end
+  def self.map_items(film_data)
+    return film_data.map {|film| Film.new(film)}
+  end
+
+  def self.delete_all()
+    sql = "DELETE FROM films;"
+    SqlRunner.run(sql)
+  end
+
+
 
 end
