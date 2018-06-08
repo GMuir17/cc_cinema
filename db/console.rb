@@ -9,16 +9,19 @@ customer1 = Customer.new({
   "name" => "Julius",
   "funds" => 200
   })
+customer1.save()
 
 customer2 = Customer.new({
   "name" => "Pompey",
   "funds" => 100
   })
+customer2.save()
 
 customer3 = Customer.new({
   "name" => "Crassus",
   "funds" => 10_000
   })
+customer3.save()
 
 # films
 film1 = Film.new({

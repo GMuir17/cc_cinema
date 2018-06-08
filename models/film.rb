@@ -11,7 +11,7 @@ class Film
     @price = options["price"].to_i()
   end
 
-
+  def save
 
 
 end
