@@ -65,6 +65,15 @@ class Customer
     return funds
   end
 
+  def decrease_funds(price)
+    sql = "UPDATE customers SET funds
+      = $1
+      WHERE id = $2;"
+    new_funds = @funds - price
+    values = [new_funds, @id]
+    SqlRunner.run(sql, values)
+  end
+
   # def buy_ticket(film)
   #   # decrease the funds of customer by the film's price, and create a new ticket
   #   sql = "INSERT INTO tickets (customer_id, film_id)
