@@ -1,6 +1,7 @@
 require_relative("../db/sql_runner.rb")
 require_relative("./film.rb")
 require_relative("./ticket.rb")
+require_relative("./screening.rb")
 
 class Customer
 
@@ -74,17 +75,20 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-  # def buy_ticket(film)
-  #   # decrease the funds of customer by the film's price, and create a new ticket
-  #   new_ticket = Ticket.new({
-  #     "customer_id" => @id,
-  #     "film_id" => film.id(),
-  #     "screening_id" =>
-  #     })
-  #   new_ticket.save()
-  #   ticket_price = film.find_price()
-  #   decrease_funds(ticket_price)
-  # end
+  def buy_ticket(screening)
+    return "Screening full" if screening.max_customers == 2
+    # decrease the funds of customer by the film's price, and create a new ticket
+    new_ticket = Ticket.new({
+      "customer_id" => @id,
+      "film_id" => screening.film_id(),
+      "screening_id" => screening.id()
+      })
+    new_ticket.save()
+    screening.max_customers += 1
+    return "Ticket purchased"
+    # ticket_price = film.find_price()
+    # decrease_funds(ticket_price)
+  end
 
 # class methods
   def self.all()

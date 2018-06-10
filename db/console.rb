@@ -51,31 +51,36 @@ film3.save()
 # screenings
 screening1 = Screening.new({
   "show_time" => "17:00",
-  "film_id" => film1.id()
+  "film_id" => film1.id(),
+  "max_customers" => 2
   })
 screening1.save()
 
 screening2 = Screening.new({
   "show_time" => "18:00",
-  "film_id" => film2.id()
+  "film_id" => film2.id(),
+  "max_customers" => 2
   })
 screening2.save()
 
 screening3 = Screening.new({
   "show_time" => "19:00",
-  "film_id" => film3.id()
+  "film_id" => film3.id(),
+  "max_customers" => 2
   })
 screening3.save()
 
 screening4 = Screening.new({
   "show_time" => "20:00",
-  "film_id" => film1.id()
+  "film_id" => film1.id(),
+  "max_customers" => 2
   })
 screening4.save()
 
 screening5 = Screening.new({
   "show_time" => "00:00",
-  "film_id" => film2.id()
+  "film_id" => film2.id(),
+  "max_customers" => 2
   })
 screening5.save()
 

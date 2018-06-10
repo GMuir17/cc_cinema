@@ -4,13 +4,14 @@ require_relative("./film.rb")
 class Screening
 
   attr_reader(:id)
-  attr_accessor(:show_time, :film_id)
+  attr_accessor(:show_time, :film_id, :max_customers)
 
 # instance methods
   def initialize(options)
     @id = options["id"].to_i() if options["id"]
     @show_time = options["show_time"]
     @film_id = options["film_id"].to_i()
+    @max_customers = options["max_customers"].to_i()
   end
 
   def save()
