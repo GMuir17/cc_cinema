@@ -84,9 +84,17 @@ class Film
       GROUP BY screenings.id;"
     values = [@id]
     result =  SqlRunner.run(sql, values)
-    hash_array = result.map {|hash| hash}
-    return hash_array
+    screening_id_and_count_array = result.map {|hash| hash}
+    sorted_array = screening_id_and_count_array.sort_by {|film_hash| film_hash["count"]}
+    highest_value_hash = sorted_array.pop()
+    most_popular_screening_id = highest_value_hash["id"]
+    sql2 = "SELECT screenings.show_time FROM screenings
+          WHERE screenings.id = $1;"
+    values2 = [most_popular_screening_id]
+    new_results = SqlRunner.run(sql2, values2)
+    return new_results.first()
   end
+# this works, sort of. It doesn't work if two screenings of the same film have the same popularity, it just gives the latest show_time. But hey it's fine for now.
 
   # class methods
   def self.all()
@@ -104,20 +112,5 @@ class Film
     sql = "DELETE FROM films;"
     SqlRunner.run(sql)
   end
-
-  # def self.most_popular_time()
-  #   sql = "SELECT screening_id, COUNT (screening_id)
-  #     FROM tickets
-  #     GROUP BY screening_id;"
-  #   hash_array =  SqlRunner.run(sql)
-  #   results_array = hash_array.map {|results_hash| results_hash}
-  #   # results_array = hash_array.map {|results_hash| results_hash["count"].to_i()}
-  #   # returns an array of integers representing the count of each screening_id
-  #   # return results_array.sort()
-  #   sorted_results_array =  results_array.sort_by {|film_hash| film_hash["count"].to_i()}
-  #   highest_count_hash = sorted_results_array.pop()
-  #   return highest_count_hash
-  # end
-
 
 end
