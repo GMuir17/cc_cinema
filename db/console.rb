@@ -122,5 +122,12 @@ ticket6 = Ticket.new({
   })
 ticket6.save()
 
+ticket7 = Ticket.new({
+  "customer_id" => customer3.id(),
+  "film_id" => film2.id(),
+  "screening_id" => screening5.id()
+  })
+ticket7.save()
+
 binding.pry
 nil

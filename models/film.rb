@@ -7,7 +7,7 @@ class Film
   attr_reader(:id)
   attr_accessor(:title, :price)
 
-# instance methods
+  # instance methods
   def initialize(options)
     @id = options["id"].to_i() if options["id"]
     @title = options["title"]
@@ -75,6 +75,19 @@ class Film
     return tickets_array.length()
   end
 
+  def most_popular_time()
+    sql = "SELECT screenings.id, COUNT (screening_id)
+      FROM screenings
+      INNER JOIN tickets
+      ON tickets.screening_id = screenings.id
+      WHERE screenings.film_id = $1
+      GROUP BY screenings.id;"
+    values = [@id]
+    result =  SqlRunner.run(sql, values)
+    hash_array = result.map {|hash| hash}
+    return hash_array
+  end
+
   # class methods
   def self.all()
     sql = "SELECT * FROM films;"
@@ -92,13 +105,19 @@ class Film
     SqlRunner.run(sql)
   end
 
-  def self.most_popular_time()
-    sql = "SELECT screening_id, COUNT (screening_id)
-      FROM tickets
-      GROUP BY screening_id;"
-    hash_array =  SqlRunner.run(sql)
-    return hash_array.map {|count| count}
-  end
+  # def self.most_popular_time()
+  #   sql = "SELECT screening_id, COUNT (screening_id)
+  #     FROM tickets
+  #     GROUP BY screening_id;"
+  #   hash_array =  SqlRunner.run(sql)
+  #   results_array = hash_array.map {|results_hash| results_hash}
+  #   # results_array = hash_array.map {|results_hash| results_hash["count"].to_i()}
+  #   # returns an array of integers representing the count of each screening_id
+  #   # return results_array.sort()
+  #   sorted_results_array =  results_array.sort_by {|film_hash| film_hash["count"].to_i()}
+  #   highest_count_hash = sorted_results_array.pop()
+  #   return highest_count_hash
+  # end
 
 
 end
